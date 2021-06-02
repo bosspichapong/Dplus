@@ -32,11 +32,10 @@ const Button = styled.button`
     cursor: ${props => props.disabled ? "not-allowed" : "pointer"};
     opacity: ${props => props.disabled ? 0.3 : 0.8};
     border-radius: ${props => props.left ? "5px 0px 0px 5px" : props.oneButton ? "5px" : "0px 5px 5px 0px"};
-    box-shadow: 0px 5px 0px 0px;
     padding: 10px;
     width: 70px;
     height: 45px;
-    &: hover {
+    &:hover {
         opacity: 1;
     }
 `;

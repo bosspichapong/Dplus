@@ -18,7 +18,6 @@ const Button = styled.input`
     width: 70px;
     background-color: ${props => props.color ? props.color : null};
     color: white;
-    box-shadow: 0px 5px 0px 0px;
     border-color: transparent;
     border-radius: 0px 5px 5px 0px;
     cursor: pointer;
