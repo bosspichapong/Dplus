@@ -51,7 +51,7 @@ const AddBar = (props) => {
         let fields = value
         let formIsValid = true;
 
-        if (typeof fields !== "") {
+        if (fields !== "") {
             if (!fields.match(/^[a-zA-Z0-9ก-๛]+$/)) {
                 formIsValid = false;
             }
