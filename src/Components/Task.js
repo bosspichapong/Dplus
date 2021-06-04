@@ -95,8 +95,7 @@ Task.propTypes = {
     disabled: PropTypes.bool,
     left: PropTypes.string,
     oneButton: PropTypes.bool,
-    index: PropTypes.number.isRequired,
-    task: PropTypes.string.isRequired,
+    task: PropTypes.object.isRequired,
     handleDelete: PropTypes.func.isRequired,
     handleUpdate: PropTypes.func.isRequired
 }
