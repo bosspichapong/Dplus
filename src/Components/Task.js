@@ -81,7 +81,7 @@ const Task = (props) => {
                 <>
                     <Text>{props.task.title}</Text>
                     <GroupOfButton>
-                        <Button disable={isEdit} left onClick={() => setIsEdit(true)} color="#00a48e">Edit</Button>
+                        <Button disable={isEdit} left onClick={() => { setIsEdit(true); setValue(props.task.title); }} color="#00a48e">Edit</Button>
                         <Button color="red" onClick={() => props.handleDelete(props.task._id)}>Delete</Button>
                     </GroupOfButton>
                 </>
