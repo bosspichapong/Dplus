@@ -17,7 +17,7 @@ function App() {
     let formIsValid = true;
 
     if (fields !== "") {
-      if (!fields.match(/^[a-zA-Z0-9ก-๏]+$/)) {
+      if (!fields.match(/^[a-zA-Z0-9ก-๏ ]+$/)) {
         alert("The entered data must be A-Z, a-z, Thai letters and numbers 0-9 only")
         formIsValid = false;
       }
