@@ -59,7 +59,6 @@ const Task = (props) => {
     const handleClick = () => {
         if (props.handleUpdate(props.task._id, value)) {
             setIsEdit(false)
-            setValue(props.task.title)
         }
     }
 
