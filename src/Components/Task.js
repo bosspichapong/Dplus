@@ -57,17 +57,17 @@ const Task = (props) => {
     const [isEdit, setIsEdit] = useState(false);
 
     const handleClick = () => {
-        if (props.handleUpdate(props.index, value)) {
+        if (props.handleUpdate(props.task._id, value)) {
             setIsEdit(false)
+            setValue(props.task.title)
         }
-        setValue('')
     }
 
     const handleChange = (event) => {
         setValue(event.target.value)
     }
 
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(props.task.title);
 
     return (
         <TaskDec>
@@ -80,10 +80,10 @@ const Task = (props) => {
                 </>
                 :
                 <>
-                    <Text>{props.task}</Text>
+                    <Text>{props.task.title}</Text>
                     <GroupOfButton>
                         <Button disable={isEdit} left onClick={() => setIsEdit(true)} color="#00a48e">Edit</Button>
-                        <Button color="red" onClick={() => props.handleDelete(props.index)}>Delete</Button>
+                        <Button color="red" onClick={() => props.handleDelete(props.task._id)}>Delete</Button>
                     </GroupOfButton>
                 </>
             }

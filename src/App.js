@@ -1,6 +1,6 @@
 import './App.css';
 import styled from 'styled-components'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import AddBar from './Components/AddBar';
 import TaskList from './Components/TaskList';
@@ -18,7 +18,7 @@ function App() {
 
     if (fields !== "") {
       if (!fields.match(/^[a-zA-Z0-9ก-๏]+$/)) {
-        alert("The entered data cannot be null, And must be A-Z, a-z, Thai letters and numbers 0-9 only")
+        alert("The entered data must be A-Z, a-z, Thai letters and numbers 0-9 only")
         formIsValid = false;
       }
       if (fields.length < 2 || fields.length > 50) {
@@ -26,29 +26,96 @@ function App() {
         formIsValid = false;
       }
     } else {
-      alert("Please fill")
+      alert("The entered data cannot be null")
       formIsValid = false;
     }
 
     return formIsValid
   }
 
-  const handleSubmit = (value) => {
+  const handleSubmit = async (value) => {
     if (handleValidation(value)) {
-      setTasks([...tasks, value])
+      try {
+        var res = await fetch("http://206.189.89.204/app/with_auth/todos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjBiOWVhODQyZDQxZGEyNzMyYjcyMWIzIiwiaWF0IjoxNjIyNzk3MTc5LCJleHAiOjE2MjUzODkxNzl9.gEejm1B_XbGNh4kcJkmDZ3ROoro8DKQS1EnuZacL_H4"
+          },
+          body:
+            JSON.stringify({ title: value })
+        });
+        var data = await res.json()
+        console.log(data)
+      } catch (e) {
+        alert(e)
+      }
+      getData()
+      // setTasks([...tasks, value])
     }
   }
 
   const [tasks, setTasks] = useState([]);
 
-  const handleDelete = (index) => {
-    setTasks(tasks.filter((_task, i) => i != index))
+  useEffect(async () => {
+    getData()
+  }, [])
+
+  const getData = async () => {
+    try {
+      var res = await fetch("http://206.189.89.204/app/no_auth/todos", {
+        method: "GET",
+      });
+      var data = await res.json()
+      var tmp = data.data.map((d) => {
+        return { _id: d._id, title: d.title }
+      })
+      setTasks(tmp)
+    } catch (e) {
+      alert(e)
+    }
   }
 
-  const handleUpdate = (index, value) => {
+  const handleDelete = async (id) => {
+    try {
+      var res = await fetch(`http://206.189.89.204/app/with_auth/todos/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjBiOWVhODQyZDQxZGEyNzMyYjcyMWIzIiwiaWF0IjoxNjIyNzk3MTc5LCJleHAiOjE2MjUzODkxNzl9.gEejm1B_XbGNh4kcJkmDZ3ROoro8DKQS1EnuZacL_H4"
+        }
+      });
+      var data = await res.json()
+      console.log(data)
+      getData()
+    } catch (e) {
+      alert(e)
+    }
+    // setTasks(tasks.filter((_task, i) => i != index))
+  }
+
+  const handleUpdate = async (id, value) => {
     if (handleValidation(value)) {
-      setTasks(tasks.slice(0, index).concat([value].concat(tasks.slice(index + 1, tasks.length))))
-      return true
+      console.log(id)
+      try {
+        var res = await fetch(`http://206.189.89.204/app/with_auth/todos/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjBiOWVhODQyZDQxZGEyNzMyYjcyMWIzIiwiaWF0IjoxNjIyNzk3MTc5LCJleHAiOjE2MjUzODkxNzl9.gEejm1B_XbGNh4kcJkmDZ3ROoro8DKQS1EnuZacL_H4"
+          },
+          body:
+            JSON.stringify({ title: value })
+        });
+        var data = await res.json()
+        console.log(data)
+        getData()
+        return true
+      } catch (e) {
+        alert(e)
+        return false
+      }
+      // setTasks(tasks.slice(0, index).concat([value].concat(tasks.slice(index + 1, tasks.length))))
     } else {
       return false
     }

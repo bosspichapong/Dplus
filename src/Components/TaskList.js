@@ -14,7 +14,7 @@ const TaskList = (props) => {
             {props.tasks.length > 0 ?
                 props.tasks.map((task, index) => {
                     return (
-                        <Task key={index} task={task} index={index} handleDelete={props.handleDelete} handleUpdate={props.handleUpdate} />
+                        <Task key={index} task={task} handleDelete={props.handleDelete} handleUpdate={props.handleUpdate} />
                     )
                 })
                 :
