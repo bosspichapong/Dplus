@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const FormGroup = styled.form`
   text-align: center;
@@ -8,7 +9,7 @@ const FormGroup = styled.form`
 
 const Input = styled.input`
     padding: 10px;
-    width: 20%;
+    width: 30%;
     border: 2px solid rgba(235, 234, 234, .7);
     border-radius: 5px 0px 0px 5px;
 `;
@@ -37,41 +38,23 @@ const AddBar = (props) => {
 
     const handleClick = (event) => {
         event.preventDefault();
-        if (handleValidation()) {
-            props.handleSubmit(value);
-        } else {
-            alert("Form has errors.")
-        }
+        props.handleSubmit(value);
         setValue('');
     }
 
-    const handleValidation = () => {
-
-        let fields = value
-        let formIsValid = true;
-
-        if (fields !== "") {
-            if (!fields.match(/^[a-zA-Z0-9ก-๛]+$/)) {
-                formIsValid = false;
-            }
-        } else {
-            formIsValid = false;
-        }
-
-        if (fields.length < 2 || fields.length > 50) {
-            formIsValid = false;
-        }
-
-        return formIsValid;
-    }
-
-
     return (
-        <FormGroup onSubmit={handleClick}>
-            <Input type="text" placeholder="Enter some plan" value={value} onChange={handleChange} />
-            <Button type="submit" value="Add" color="#00a48e" />
-        </FormGroup>
+        <>
+            <FormGroup onSubmit={handleClick}>
+                <Input type="text" placeholder="Enter some plan" value={value} onChange={handleChange} />
+                <Button type="submit" value="Add" color="#00a48e" />
+            </FormGroup>
+        </>
     );
+}
+
+AddBar.propTypes = {
+    color: PropTypes.string,
+    handleSubmit: PropTypes.func.isRequired
 }
 
 export default AddBar;

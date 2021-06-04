@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import Task from '../Components/Task'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const Tasks = styled.div`
     margin-top: 70px;
@@ -18,9 +20,14 @@ const TaskList = (props) => {
                 :
                 null
             }
-
         </Tasks >
     );
+}
+
+TaskList.propTypes = {
+    tasks: PropTypes.array.isRequired,
+    handleDelete: PropTypes.func.isRequired,
+    handleUpdate: PropTypes.func.isRequired
 }
 
 export default TaskList;

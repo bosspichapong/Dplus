@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import { useState } from 'react'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 const TaskDec = styled.div`
     width: 40%;
@@ -50,39 +52,15 @@ const Input = styled.input`
     border-radius: 5px;
 `;
 
-
 const Task = (props) => {
 
     const [isEdit, setIsEdit] = useState(false);
 
     const handleClick = () => {
-        if (handleValidation()) {
-            props.handleUpdate(props.index, value)
+        if (props.handleUpdate(props.index, value)) {
             setIsEdit(false)
-        } else {
-            alert("Form has errors.")
         }
         setValue('')
-    }
-
-    const handleValidation = () => {
-
-        let fields = value
-        let formIsValid = true;
-
-        if (fields !== "") {
-            if (!fields.match(/^[a-zA-Z0-9ก-๏]+$/)) {
-                formIsValid = false;
-            }
-        } else {
-            formIsValid = false;
-        }
-
-        if (fields.length < 2 || fields.length > 50) {
-            formIsValid = false;
-        }
-
-        return formIsValid;
     }
 
     const handleChange = (event) => {
@@ -111,6 +89,17 @@ const Task = (props) => {
             }
         </TaskDec>
     );
+}
+
+Task.propTypes = {
+    color: PropTypes.string,
+    disabled: PropTypes.bool,
+    left: PropTypes.string,
+    oneButton: PropTypes.bool,
+    index: PropTypes.number.isRequired,
+    task: PropTypes.string.isRequired,
+    handleDelete: PropTypes.func.isRequired,
+    handleUpdate: PropTypes.func.isRequired
 }
 
 export default Task;
