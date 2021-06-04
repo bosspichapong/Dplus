@@ -56,8 +56,8 @@ const Task = (props) => {
 
     const [isEdit, setIsEdit] = useState(false);
 
-    const handleClick = () => {
-        if (props.handleUpdate(props.task._id, value)) {
+    const handleClick = async () => {
+        if (await props.handleUpdate(props.task._id, value)) {
             setIsEdit(false)
         }
     }
