@@ -2,16 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import Test from './Test'
+import Test from './Test'
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux"
 import { store } from './Redux/store'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
-      {/* <Test /> */}
+      <Router>
+        <Switch>
+          <Route path="/test">
+            <Test />
+          </Route>
+          <Route path="/">
+            <App />
+          </Route>
+        </Switch>
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

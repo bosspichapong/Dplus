@@ -8,6 +8,8 @@ import TaskList from './Components/TaskList';
 import { addTasks, getTasks, deleteTasks, editTasks } from "./Redux/Todo/actions";
 import { useSelector, useDispatch } from "react-redux";
 
+import ReactLoading from 'react-loading';
+
 const Header = styled.div`
     text-align: center;
 `;
@@ -44,6 +46,7 @@ function App() {
   }
 
   const tasks = useSelector((state) => state.todo.tasks);
+  const loading = useSelector((state) => state.todo.loading)
   const dispatch = useDispatch();
   console.log(tasks)
 
@@ -73,7 +76,12 @@ function App() {
         {"What's the Plan for Today?"}
       </Header>
       <AddBar handleSubmit={handleSubmit} />
-      <TaskList tasks={tasks} handleDelete={handleDelete} handleUpdate={handleUpdate} />
+      {
+        loading ?
+          <ReactLoading type={"spinningBubbles"} color={"grey"} style={{ "margin": "auto", "marginTop": "70px", "height": "10%", "width": "10%" }} />
+          :
+          <TaskList tasks={tasks} handleDelete={handleDelete} handleUpdate={handleUpdate} />
+      }
     </div>
   );
 }
