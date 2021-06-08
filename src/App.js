@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import AddBar from './Components/AddBar';
 import TaskList from './Components/TaskList';
 
-import { addTasks, getTasks, deleteTasks, editTasks } from "./Redux/actions";
+import { addTasks, getTasks, deleteTasks, editTasks } from "./Redux/Todo/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 const Header = styled.div`
@@ -36,27 +36,27 @@ function App() {
     return formIsValid
   }
 
-  const handleSubmit = async (value) => {
+  const handleSubmit = (value) => {
     if (handleValidation(value)) {
       dispatch(addTasks(value))
       // setTasks([...tasks, value])
     }
   }
 
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector((state) => state.todo.tasks);
   const dispatch = useDispatch();
   console.log(tasks)
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(getTasks());
   }, [])
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     dispatch(deleteTasks(id))
     // setTasks(tasks.filter((_task, i) => i != index))
   }
 
-  const handleUpdate = async (id, value) => {
+  const handleUpdate = (id, value) => {
     if (handleValidation(value)) {
       console.log(id)
       dispatch(editTasks(id, value));
